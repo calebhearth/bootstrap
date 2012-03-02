@@ -1,0 +1,30 @@
+#!/bin/bash
+# To make your rails 3.x app go run these commands.
+
+# Fail if any of these commands return a nonzero status
+set -o errexit
+
+# Install the gems specified in your Gemfile
+bundle install \
+  # Create a directory containing an executable that runs in the context of the
+  # bundle.  For instance, if the rails gem comes with a rails executable, this
+  # flag will create a bin/rails executable that ensures that all dependencies
+  # used come from the bundled gems.
+  --binstubs \
+  # Install the gems in the bundle to `vendor/gems`. This makes life easier when
+  # you need to debug gems used in your rails application, and sandboxes your
+  # gem environment. 
+  --path=vendor/gems \
+  # Skip installing the gems used only in production. This saves some time in
+  # setup.
+  --without=production
+
+# create, and migrate the database
+bundle exec rake db:create db:migrate
+# pull seed data from production. Having actual data to play with in development
+# makes things like UI design and writing business logic easier.
+script/replicate-repo
+# seed the database. You might have values in your seeds that should override
+# production data, so we do this after pulling from production.
+bundle exec rake db:seed
+
