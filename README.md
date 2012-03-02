@@ -44,8 +44,8 @@ bundle install \
 ### db seeding
 
 * pull database from production app
-* `rake db:seed_fu`
-* script/replicate-repo
+* `rake db:seed`
+* `script/replicate-repo`
 
 ### static page compilation
 
