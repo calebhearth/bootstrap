@@ -57,10 +57,13 @@ python, c, erlang...
 
 ## But running script/bootstrap takes forever...
 
-*cache bootstrap results*
+**cache bootstrap results**
+
+```
 md5      << File.read('Gemfile')
 checksum  = md5.hexdigest
 installed = File.read('.bundle/checksum').strip
+```
 
 Running `script/bootstrap` should be fast, straightforward, and require no
 knowledge of the underlying language or app setup.
